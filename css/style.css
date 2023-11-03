@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Borel&family=Mooli&family=Rubik:wght@300&family=Ubuntu:wght@300;400&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.backg {
+  background: #fff;
+}
+
+.home {
+  background: #ffed4d;
+}
+
+.button {
+  background: #3cae3f;
+}
+
+.text {
+  font-family: "Ubuntu", sans-serif;
+}
