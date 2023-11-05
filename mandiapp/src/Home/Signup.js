@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import singup from '../Img/SingUp.png';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-export default function Signup() {
+export default function Signup(props) {
     let navigate = useNavigate();
     const [farmerid, setFarmerid] = useState('');
     const [name, setName] = useState('');
@@ -14,7 +14,7 @@ export default function Signup() {
     const [number, setNumber] = useState('');
     const [mandiname, setMandiname] = useState('');
     const [diss, setDiss] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState('hjhjh');
     const [farmeradhar, setFarmeradhar] = useState('');
     const [image, setImage] = useState('');
     const [check, setCheck] = useState('');
@@ -22,6 +22,7 @@ export default function Signup() {
 
     const saveFarmer = (e) => {
         e.preventDefault();
+        props.setProgress(30);
         if (check === 'check') {
             console.log(check);
             if (name === '') {
@@ -36,27 +37,29 @@ export default function Signup() {
                     theme: "colored",
                 });
             }
-            else if (email === '') {toast.error('Please Enter Your Email..!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
+            else if (email === '') {
+                toast.error('Please Enter Your Email..!', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
-            else if (password === '') {toast.error('Please Enter Your Password..!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
+            else if (password === '') {
+                toast.error('Please Enter Your Password..!', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
             else if (password !== cpassword) {
                 toast.error('Your Password do not Match..!', {
@@ -118,6 +121,18 @@ export default function Signup() {
                     theme: "colored",
                 });
             }
+            else if (mandiname === '') {
+                toast.error('Please Select Your Mandi..!', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
             else {
                 const farmer = { name, email, password, number, farmeradhar, image, farmerid, diss, state, mandiname };
                 axios.post('http://localhost:8080/farmer', farmer, {
@@ -149,7 +164,16 @@ export default function Signup() {
 
                     }
                 }).catch(error => {
-                    console.error(error);
+                    toast.error(error.response.data, {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 })
             }
         } else {
@@ -164,20 +188,17 @@ export default function Signup() {
                 theme: "colored",
             });
         }
+        props.setProgress(100);
     }
     return (
-        <div className='container'>
-
-            {/* {msg[0] ? <div className={`alert alert-${msg[2]} alert-dismissible fade show role=alert`}>
-                <strong>{msg[3]}</strong> {msg[1]}
-            </div> : <div style={{ height: "75px" }}></div>} */}
-            <div className="card shadow">
+        <div className='container mt-3 d-flex justify-content-center'>
+            <div className="card shadow" style={{width:"60rem"}}>
                 <h1 className='text-center'>Sign up</h1>
                 <div className='row'>
-                    <div className='col-lg-6'>
-                        <img src={singup} alt="" />
+                    <div className='col-lg-5'>
+                        <img src={singup} alt="" className='img-fluid' />
                     </div>
-                    <div className='col-lg-6'>
+                    <div className='col-lg-7'>
                         <div className='mx-2 my-2'>
                             <form onSubmit={saveFarmer}>
                                 <div className='row'>
@@ -192,16 +213,7 @@ export default function Signup() {
                                                 <i className="fa-solid fa-envelope mt-2"></i>&nbsp;<input type="email" className="form-control" id="email" name='email' autoComplete='off' value={email} onChange={(e) => { setEmail(e.target.value); setFarmerid(e.target.value.split('@')[0]) }} placeholder="Email" />
                                             </div>
                                         </div>
-                                        <div className="mb-3">
-                                            <div className="d-flex">
-                                                <i className="fa-solid fa-lock mt-2"></i>&nbsp;<input type="password" className="form-control" id="password" name='password' autoComplete='off' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                                            </div>
-                                        </div>
-                                        <div className="mb-3">
-                                            <div className="d-flex">
-                                                <i className="fa-solid fa-lock mt-2"></i>&nbsp;<input type="password" className="form-control" id="cpassword" name='cpassword' autoComplete='off' value={cpassword} onChange={(e) => setCpassword(e.target.value)} placeholder="Confirm Passwpod" />
-                                            </div>
-                                        </div>
+
                                         <div className="mb-3">
                                             <div className="d-flex">
                                                 <i className="fa-solid fa-mobile-screen-button mt-2"></i>&nbsp;<input type="number" className="form-control" id="number" name='number' autoComplete='off' value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Mobile Number" />
@@ -212,11 +224,21 @@ export default function Signup() {
                                                 <i className="fa-solid fa-address-card mt-2"></i>&nbsp;<input type="number" className="form-control" id="adhar" autoComplete='off' name='farmeradhar' value={farmeradhar} onChange={(e) => setFarmeradhar(e.target.value)} placeholder="Adhar Number" />
                                             </div>
                                         </div>
+                                        <div className="mb-3">
+                                            <div className="d-flex">
+                                                <i className="fa-solid fa-lock mt-2"></i>&nbsp;<input type="password" className="form-control" id="password" name='password' autoComplete='off' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                                            </div>
+                                        </div>
+                                        <div className="mb-3">
+                                            <div className="d-flex">
+                                                <i className="fa-solid fa-lock mt-2"></i>&nbsp;<input type="password" className="form-control" id="cpassword" name='cpassword' autoComplete='off' value={cpassword} onChange={(e) => setCpassword(e.target.value)} placeholder="Confirm Password" />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className='col-lg-6'>
                                         <div className="mb-3">
                                             <div className="d-flex">
-                                                &nbsp;<select className="form-select" id='state' aria-label="Default select example" value={state} onChange={(e) => setState(e.target.value)}>
+                                                &nbsp;<select className="form-select" id='state' value={state} onChange={(e) => setState(e.target.value)}>
                                                     <option value="">State</option>
                                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -255,15 +277,15 @@ export default function Signup() {
                                                     <option value="West Bengal">West Bengal</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div className="mb-3">
-                                            <div className="d-flex">
-                                                &nbsp;<select className="form-select" id='distric' aria-label="Default select example" name='diss' value={diss} onChange={(e) => setDiss(e.target.value)}>
-                                                    <option >Distric</option>
-                                                    <option value="Rohtas">Rohtas</option>
-                                                    <option value="Bhabhua">Bhabhua</option>
-                                                    <option value="Ara">Ara</option>
-                                                </select>
+                                            <div className="mt-3">
+                                                <div className="d-flex">
+                                                    &nbsp;<select className="form-select" id='district' aria-label="Default select example" name='diss' value={diss} onChange={(e) => setDiss(e.target.value)}>
+                                                        <option >Distric</option>
+                                                        <option value="Rohtas">Rohtas</option>
+                                                        <option value="Bhabhua">Bhabhua</option>
+                                                        <option value="Ara">Ara</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="mb-3">
@@ -271,18 +293,27 @@ export default function Signup() {
                                                 &nbsp;<input type="text" name='mandiname' value={mandiname} onChange={(e) => setMandiname(e.target.value)} className="form-control" id="mandiname" autoComplete='off' placeholder="Mandi" />
                                             </div>
                                         </div>
-
-                                        <div className="mb-3">
+                                        {/* <div className="mb-3">
                                             <div className="d-flex" >
                                                 <label htmlFor="image"><i className="fa-solid fa-image mt-2"></i> Upload Img</label>&nbsp;<input type="file" id='image' accept='image/jpeg, image/png, image/jpg' className="form-control" name='image' style={{ display: "none" }} />
                                                 <img src={singup} alt="" className='img-fluid rounded-4' style={{ height: "30px", width: "30px" }} />
                                             </div>
+                                        </div> */}
+
+                                        <div className='mt-3'>
+                                            <input className="form-check-input" type="checkbox" id="checkbox" value={'check'} checked={check !== ''} onChange={(e) => setCheck(e.target.value)} aria-label="..." /> <label htmlFor="checkboxNoLabel"> Terms and Condtion.</label>
                                         </div>
-                                        <div>
-                                            <input className="form-check-input" type="checkbox" id="checkbox" value={'check'} checked={check !== ''} onChange={(e) => setCheck(e.target.value)} aria-label="..." /> <label htmlFor="checkboxNoLabel"> I agree to Terms and Condtion.</label>
+                                        <div className='mt-3 text-center'>
+                                            <button className="btn btn-success" type="submit"> Submit
+                                            </button>
                                         </div>
+                                        <div className='mt-3 text-center'>
+                                            <button className="btn btn-danger" type="button">
+                                                <i className="fa-brands fa-google"></i>  LOGIN IN WITH GOOGLE
+                                            </button>
+                                        </div>
+
                                     </div>
-                                    <button className='btn btn-danger' type='submit'>Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -290,6 +321,7 @@ export default function Signup() {
                 </div>
             </div>
             <ToastContainer />
+
         </div>
     )
 }
