@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { signUp } from '../Service/Service';
 export default function Signup(props) {
     let navigate = useNavigate();
     const [farmerid, setFarmerid] = useState('');
@@ -149,6 +150,9 @@ export default function Signup(props) {
                             progress: undefined,
                             theme: "colored",
                         });
+                        setTimeout(() => {
+                            navigate('/login');
+                        }, 2000)
                     }
                     else {
                         toast.error('Please Enter Your Name..!', {
@@ -175,8 +179,11 @@ export default function Signup(props) {
                         theme: "colored",
                     });
                 })
+                // const resp = signUp(farmer);
+                // console.log(resp);
             }
-        } else {
+        }
+        else {
             toast.error('Please Check Term Condition..!', {
                 position: "top-center",
                 autoClose: 1000,
@@ -192,7 +199,7 @@ export default function Signup(props) {
     }
     return (
         <div className='container mt-3 d-flex justify-content-center'>
-            <div className="card shadow" style={{width:"60rem"}}>
+            <div className="card shadow" style={{ width: "60rem" }}>
                 <h1 className='text-center'>Sign up</h1>
                 <div className='row'>
                     <div className='col-lg-5'>

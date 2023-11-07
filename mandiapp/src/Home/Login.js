@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { doLogin } from '../Auth';
 export default function Login() {
     let navigate = useNavigate();
     const [farmerid, setFarmerid] = useState('');
     const [farmerpassword, setFarmerpassword] = useState('');
-    const [farmer, setFarmer] = useState({});
     const loginFarmer = async (e) => {
         e.preventDefault();
         const login = { farmerid, farmerpassword }
@@ -39,7 +39,11 @@ export default function Login() {
                 headers: { 'Content-Type': 'application/json' }
             })
                 .then((response) => {
-                    setFarmer(response.data);
+                    doLogin((response.data), () => {
+                        setTimeout(() => {
+                            navigate("/");
+                        }, 2000);
+                    })
                     toast.success("Login Done..!", {
                         position: "top-center",
                         autoClose: 1000,
@@ -65,8 +69,6 @@ export default function Login() {
                 });
         }
     }
-    useEffect(() => {
-    }, [farmer])
     return (
         <div className='container d-flex justify-content-center'>
             <div className="card shadow" style={{ width: "30rem" }}>
