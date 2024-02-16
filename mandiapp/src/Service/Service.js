@@ -6,7 +6,6 @@ export const signUp = (farmer) => {
     }).then((response) => {
         return response.data;
     }).catch((err) => {
-        console.log(err.response.data)
         return err.response.data;
     })
 

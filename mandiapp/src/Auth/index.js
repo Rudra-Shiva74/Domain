@@ -1,11 +1,12 @@
 export const doLogin = (data, next) => {
+    console.log(data);
     localStorage.setItem("data", JSON.stringify(data));
+
     next();
 }
 
 export const isLoggedIn = () => {
     let data = localStorage.getItem('data');
-    // console.log("object");
     if (data == null) return false;
     else return true;
 }

@@ -2,67 +2,57 @@
 * {
   font-family: "Mooli", sans-serif;
 }
-
-:root {
-  --text-color: #f5f5f5;
-  --hover-color: #BAFF39;
-  --bg-color: #250821;
-  --secon-bg-color: #292e33;
-  --big-font: 2.5rem;
-  --normal-font: 2rem;
-  --h2-font: 3rem;
-  --font-neon-text-shadow: 0 0 10px rgba(18, 247, 255, 0.3),
-    0 0 20px rgba(18, 247, 255, 0.3), 0 0 30px rgba(18, 247, 255, 0.3),
-    0 0 40px rgba(18, 247, 255, 0.3), 0 0 70px rgba(18, 247, 255, 0.3),
-    0 0 80px rgba(18, 247, 255, 0.3), 0 0 100px rgba(18, 247, 255, 0.3),
-    0 0 150px rgba(18, 247, 255, 0.3);
+body {
+  background: #fff8e1;
 }
-
-.maincolor{
-  background: var(--hover-color);
+.registration-form {
+  background: #4caf50;
 }
-.homecolor{
-  background: #6E6E6E;
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }
-.btn-box .btn {
-  background: var(--hover-color);
-  color: var(--bg-color);
-  box-shadow: var(--neon-box-shadow);
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* This is for registration-form only  */
+.bottom-line i {
+  color: #ffd700;
+}
+.password-toggle {
   position: relative;
-  overflow: hidden;
-  z-index: 1;
-  border: 2px solid var(--hover-color);
-}
-
-.btn:hover {
-  color: var(--hover-color);
-}
-
-.btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: var(--bg-color);
-  width: 0;
-  height: 100%;
-  z-index: -1;
-  transition: 0.4s;
-}
-
-.btn:hover::before {
   width: 100%;
 }
 
-.btn:nth-child(2) {
-  background: var(--bg-color);
-  color: var(--hover-color);
+.password-toggle i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
 }
-
-.btn:nth-child(2):hover {
-  color: var(--bg-color);
+.password-toggle i:hover {
+  color: #ffd700;
 }
-
-.btn:nth-child(2)::before {
-  background: var(--hover-color);
+.form-control,
+.form-select {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.bottom-line {
+  border-bottom: 2px solid #ffd700;
+  background: white;
+}
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+.Home {
+  background: #FFD700;
+  clip-path: polygon(50% 0%, 100% 0, 100% 96%, 66% 100%, 28% 96%, 0 100%, 0 0);
 }
